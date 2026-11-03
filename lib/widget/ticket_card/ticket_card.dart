@@ -20,7 +20,8 @@ class TicketCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final parts = event.hour.split(':');
+    final rawParts = event.hour.split(':');
+    final parts = rawParts.length >= 2 ? rawParts : const ['--', '--'];
     final width = MediaQuery.of(context).size.width;
     return Container(
       decoration: MyBoxDecoration.ticketCard,

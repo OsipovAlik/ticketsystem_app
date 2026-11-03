@@ -6,6 +6,9 @@ class NotificationService {
   static final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
 
   static Future<void> onDidReceiveNotificationResponse(NotificationResponse notificationResponse) async {}
+
+  @pragma('vm:entry-point')
+  static Future<void> onDidReceiveBackgroundNotificationResponse(NotificationResponse notificationResponse) async {}
   
 
   static Future<void> init() async {
@@ -24,7 +27,7 @@ class NotificationService {
     await flutterLocalNotificationsPlugin.initialize(
       initializationSettings,
       onDidReceiveNotificationResponse: onDidReceiveNotificationResponse,
-      onDidReceiveBackgroundNotificationResponse: onDidReceiveNotificationResponse,
+      onDidReceiveBackgroundNotificationResponse: onDidReceiveBackgroundNotificationResponse,
       );
 
     await flutterLocalNotificationsPlugin

@@ -21,7 +21,8 @@ class AuthProvider extends ChangeNotifier {
 
     try {
       final res = await Auth.shared.loginUser(body);
-    
+      if (!context.mounted) return;
+
       if(res.success){
         globalToken = res.token;
         name = res.name;
@@ -43,12 +44,13 @@ class AuthProvider extends ChangeNotifier {
         notifyListeners();
         SnackbarUtil.showSnackbar(context, res.message);
       }
-       
+
     } catch (err) {
       _isLoading = false;
       notifyListeners();
+      if (!context.mounted) return;
      SnackbarUtil.showSnackbar(context, S.current.system_error,
-       duration: Duration(milliseconds: 500)); 
+       duration: Duration(milliseconds: 500));
     }
   }
 
@@ -58,13 +60,14 @@ Future<void> register(BuildContext context, Object body) async {
     notifyListeners();
     try {
       final res =  await Auth.shared.registerUser(body);
+      if (!context.mounted) return;
      if(res.success){
         globalToken = res.token;
         name = res.name;
         email = res.email;
         phone = res.phone;
        _isLoading = false;
-        guest = true;
+        guest = false;
         Services.setToken(globalToken);
         Services.setPhone(phone);
         Services.setName(name);
@@ -82,8 +85,9 @@ Future<void> register(BuildContext context, Object body) async {
     } catch (err) {
       _isLoading = false;
       notifyListeners();
+      if (!context.mounted) return;
        SnackbarUtil.showSnackbar(context, S.current.system_error,
-       duration: Duration(milliseconds: 500)); 
+       duration: Duration(milliseconds: 500));
     }
   }
 }

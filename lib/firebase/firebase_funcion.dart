@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
@@ -8,9 +10,19 @@ class FirebaseService {
   final FirebaseMessaging _firebaseMessaging = FirebaseMessaging.instance;
   final FlutterLocalNotificationsPlugin _localNotificationsPlugin = FlutterLocalNotificationsPlugin();
 
+  StreamSubscription<String>? _tokenRefreshSubscription;
+  StreamSubscription<RemoteMessage>? _onMessageSubscription;
+  StreamSubscription<RemoteMessage>? _onMessageOpenedAppSubscription;
 
   /// Initialize Firebase Messaging
   Future<void> initializeFirebase(BuildContext context) async {
+  // RestartWidget rebuilds the widget tree (e.g. on language change),
+  // re-running this init. Cancel any previous subscriptions first so
+  // messages aren't handled multiple times by stacked listeners.
+  await _tokenRefreshSubscription?.cancel();
+  await _onMessageSubscription?.cancel();
+  await _onMessageOpenedAppSubscription?.cancel();
+
   NotificationSettings settings = await _firebaseMessaging.requestPermission(
     alert: true,
     badge: true,
@@ -29,7 +41,7 @@ class FirebaseService {
     updateTokenOnServer(devicetoken, context);
 
     // Listen for token refreshes
-    _firebaseMessaging.onTokenRefresh.listen((newToken) {
+    _tokenRefreshSubscription = _firebaseMessaging.onTokenRefresh.listen((newToken) {
       debugPrint("Firebase Token Refreshed: $newToken");
 
       // Update the server with the new token here
@@ -57,7 +69,7 @@ class FirebaseService {
 
   /// Handle messages when the app is in the foreground
   void handleForegroundMessages(BuildContext context) {
-    FirebaseMessaging.onMessage.listen((RemoteMessage message) async {
+    _onMessageSubscription = FirebaseMessaging.onMessage.listen((RemoteMessage message) async {
       final notification = message.notification;
       _processNotificationData(message.data);
 
@@ -72,7 +84,7 @@ class FirebaseService {
 
   /// Handle messages when the app is opened from a notification (background)
   void handleBackgroundMessages(BuildContext context) {
-    FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) async {
+    _onMessageOpenedAppSubscription = FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) async {
       _processNotificationData(message.data);
       // if (orderId.isNotEmpty) {
       //   Navigator.push(context, MaterialPageRoute(builder: (context) => OrderHistoryDetail()));

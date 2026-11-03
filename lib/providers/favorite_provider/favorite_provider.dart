@@ -47,12 +47,14 @@ class FavoriteProvider extends ChangeNotifier {
       if (!res.success) {
         data.isFavorite = !data.isFavorite;
         notifyListeners();
+        if (!context.mounted) return;
         SnackbarUtil.showSnackbar(context, res.message,
             duration: Duration(milliseconds: 500));
       }
     } catch (err) {
       data.isFavorite = !data.isFavorite;
       notifyListeners();
+      if (!context.mounted) return;
       SnackbarUtil.showSnackbar(context, S.current.system_error,
           duration: Duration(milliseconds: 500));
     }

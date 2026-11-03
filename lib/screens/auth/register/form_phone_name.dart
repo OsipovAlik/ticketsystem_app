@@ -76,6 +76,7 @@ class FormPhoneName extends StatelessWidget {
                       // Validate that the length is exactly 8 digits
                       if (value == null || value.length != numberLength) {
                         validator();
+                        return '';
                       }
                       return null;
                     },
@@ -152,9 +153,8 @@ class FormPhoneName extends StatelessWidget {
         context: context,
         showPhoneCode: true,
         onSelect: (Country country) {
-          // setState(() {
-          //   countryCode = country.phoneCode;
-          // });
+          countryCode = country.phoneCode;
+          onChange();
         },
         countryListTheme: CountryListThemeData(
           flagSize: 20,

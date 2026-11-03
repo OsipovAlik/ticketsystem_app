@@ -103,7 +103,7 @@ class EventChartState extends State<EventChart> {
 
     // #docregion platform_features
     if (controller.platform is AndroidWebViewController) {
-      AndroidWebViewController.enableDebugging(true);
+      AndroidWebViewController.enableDebugging(kDebugMode);
       (controller.platform as AndroidWebViewController)
           .setMediaPlaybackRequiresUserGesture(false);
     }

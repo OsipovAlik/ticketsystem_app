@@ -12,9 +12,9 @@ class TicketDetailsProvider extends ChangeNotifier{
   bool get isVisible => _isVisible;
  List<TicketDetailsModel> get list => _list;
 
- void onRefresh(BuildContext context) {
-  getTicketDetailsInfo(context);
-  getDetailsTickets(context);
+ Future<void> onRefresh(BuildContext context) async {
+  await getTicketDetailsInfo(context);
+  await getDetailsTickets(context);
  }
   
     Future<void> getTicketDetailsInfo(BuildContext context) async {

@@ -13,49 +13,43 @@ class TicketsProvider extends ChangeNotifier {
   List<TicketPastUpcomingModel> get pastList => _pastList;
   List<TicketPastUpcomingModel> get upcomingList => _upcomingList;
 
-  void onRefresh(BuildContext context){
-    getPastTickets(context);
-    getUpcomingTickets(context);
-  }
-
- void getAllData(BuildContext context){
-      if(_pastList.isEmpty && _upcomingList.isEmpty){
-       getPastTickets(context);
-       getUpcomingTickets(context);
-      }
-    
-  }
-
-  Future<void> getPastTickets(BuildContext context) async {
+  Future<void> onRefresh(BuildContext context) async {
     _isVisible = true;
     notifyListeners();
-    try {
-      final res = await Order.shared.getPastOrder();
-        _pastList = TicketPastUpcomingModel.fromJsonList(res.resData["list"]);
-       _isVisible = false;
-       notifyListeners();
-    } catch (err) {
-       _isVisible = false;
-       notifyListeners();
-        // SnackbarUtil.showSnackbar(context, S.current.system_error,
-        //     duration: Duration(milliseconds: 500));
+    await Future.wait([
+      getPastTickets(context),
+      getUpcomingTickets(context),
+    ]);
+    _isVisible = false;
+    notifyListeners();
+  }
+
+  Future<void> getAllData(BuildContext context) async {
+    if (_pastList.isEmpty && _upcomingList.isEmpty) {
+      await onRefresh(context);
     }
   }
 
-  
+  Future<void> getPastTickets(BuildContext context) async {
+    try {
+      final res = await Order.shared.getPastOrder();
+        _pastList = TicketPastUpcomingModel.fromJsonList(res.resData["list"]);
+        // SnackbarUtil.showSnackbar(context, S.current.system_error,
+        //     duration: Duration(milliseconds: 500));
+    } catch (err) {
+      // keep previous list on error
+    }
+  }
+
+
 Future<void> getUpcomingTickets(BuildContext context) async {
-    _isVisible = true;
-    notifyListeners();
     try {
       final res = await Order.shared.getUpcomingOrder();
        _upcomingList = TicketPastUpcomingModel.fromJsonList(res.resData["list"]);
-       _isVisible = false;
-       notifyListeners();
-    } catch (err) {
-        _isVisible = false;
-       notifyListeners();
         // SnackbarUtil.showSnackbar(context, S.current.system_error,
         //     duration: Duration(milliseconds: 500));
+    } catch (err) {
+      // keep previous list on error
     }
   }
 

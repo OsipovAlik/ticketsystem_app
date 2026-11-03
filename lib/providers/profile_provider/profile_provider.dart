@@ -7,6 +7,7 @@ import 'package:ticketsystem/generated/l10n.dart';
 import 'package:ticketsystem/global/global.dart';
 import 'package:ticketsystem/screens/auth/login/login.dart';
 import 'package:ticketsystem/services/api/auth/auth.dart';
+import 'package:ticketsystem/services/services.dart';
 import 'package:ticketsystem/widget/snackbar_util/snackbar_util.dart';
 
 
@@ -47,10 +48,17 @@ Future<void> signOut( BuildContext context) async {
     try {
       // await Login.shared.signOut();
       final prefs = await SharedPreferences.getInstance();
-      await prefs.remove('token');
+      await Services.removeToken();
       await prefs.remove('address');
+      await prefs.remove('name');
+      await prefs.remove('phone');
+      await prefs.remove('email');
         globalToken = "";
         guest = true;
+        name = "";
+        phone = "";
+        email = "";
+        if (!context.mounted) return;
         Navigator.of(context, rootNavigator: true).pushReplacement(
             MaterialPageRoute(builder: (context) => const Login()));
     } catch (e) {
@@ -71,18 +79,29 @@ Future<void> signOut( BuildContext context) async {
       final res = await Auth.shared.removeAccount();
       if (res.success) {
         final prefs = await SharedPreferences.getInstance();
-        await prefs.remove('token');
+        await Services.removeToken();
+        await prefs.remove('address');
+        await prefs.remove('name');
+        await prefs.remove('phone');
+        await prefs.remove('email');
         globalToken = "";
         guest = true;
+        name = "";
+        phone = "";
+        email = "";
         _onLoading = false;
+        if (!context.mounted) return;
         Navigator.pop(context);
         Navigator.of(context, rootNavigator: true).pushReplacement(
             MaterialPageRoute(builder: (context) => const Login()));
       } else {
-        SnackbarUtil.showSnackbar(context, res.message);
         _onLoading = false;
+        if (!context.mounted) return;
+        SnackbarUtil.showSnackbar(context, res.message);
       }
     } catch (err) {
+      _onLoading = false;
+      if (!context.mounted) return;
       SnackbarUtil.showSnackbar(context, S.current.system_error);
       _onLoading = false;
     }

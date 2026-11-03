@@ -35,7 +35,8 @@ final _scrollController = ScrollController();
     
     provider.getAllData();
      _scrollController.addListener(() {
-      if (_scrollController.position.pixels ==_scrollController.position.maxScrollExtent) {
+      final position = _scrollController.position;
+      if (position.pixels >= position.maxScrollExtent - 200) {
         provider.loadMore();
       }
     });

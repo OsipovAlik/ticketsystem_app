@@ -86,6 +86,12 @@ class FormEmailPass extends StatelessWidget {
               controller: passwordController,
               cursorColor: Colors.white,
               obscureText: obscureText,
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                  return ""; // Localization for 'Password is required'
+                }
+                return null;
+              },
               decoration: InputDecoration(
                 suffixIcon: IconButton(
                     color: Colors.grey,

@@ -39,6 +39,8 @@ class DetailsState extends State<Details> {
   EventDetailsModel? detailData;
   List<EventModel> eventSimilar = [];
   bool isExpanded = false;
+  final Set<dynamic> _favoriteInFlight = {};
+  bool _detailsFavoriteInFlight = false;
 
   Future<void> getEventList() async {
     if (!mounted) return;
@@ -75,7 +77,8 @@ class DetailsState extends State<Details> {
   }
 
   Future<void> addFavorite(BuildContext context, EventModel data) async {
-    if (!mounted) return;
+    if (!mounted || _favoriteInFlight.contains(data.id)) return;
+    _favoriteInFlight.add(data.id);
     setState(() {
       data.isFavorite = !data.isFavorite;
     });
@@ -84,6 +87,7 @@ class DetailsState extends State<Details> {
     String reqBody = jsonEncode(body);
     try {
       final res = await Favorite.shared.addFavorite(reqBody);
+      if (!mounted) return;
       if (!res.success) {
         setState(() {
           data.isFavorite = !data.isFavorite;
@@ -93,17 +97,21 @@ class DetailsState extends State<Details> {
             duration: Duration(milliseconds: 500));
       }
     } catch (err) {
+      if (!mounted) return;
       setState(() {
         data.isFavorite = !data.isFavorite;
       });
       SnackbarUtil.showSnackbar(context, S.current.system_error,
           duration: Duration(milliseconds: 500));
+    } finally {
+      _favoriteInFlight.remove(data.id);
     }
   }
 
   Future<void> addFavoriteDetails(BuildContext context, EventDetailsModel data) async {
     if(!guest){
-      if (!mounted) return;
+      if (!mounted || _detailsFavoriteInFlight) return;
+      _detailsFavoriteInFlight = true;
        setState(() {
       data.isFavorite = !data.isFavorite;
     });
@@ -112,6 +120,7 @@ class DetailsState extends State<Details> {
     String reqBody = jsonEncode(body);
     try {
       final res = await Favorite.shared.addFavorite(reqBody);
+      if (!mounted) return;
       if (!res.success) {
         setState(() {
           data.isFavorite = !data.isFavorite;
@@ -120,12 +129,15 @@ class DetailsState extends State<Details> {
             duration: Duration(milliseconds: 500));
       }
     } catch (err) {
+      if (!mounted) return;
       setState(() {
         data.isFavorite = !data.isFavorite;
       });
 
       SnackbarUtil.showSnackbar(context, S.current.system_error,
           duration: Duration(milliseconds: 500));
+    } finally {
+      _detailsFavoriteInFlight = false;
     }
     }else{
        Navigator.of(context, rootNavigator: true).pushReplacement(

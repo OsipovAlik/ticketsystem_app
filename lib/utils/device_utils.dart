@@ -6,13 +6,24 @@ import 'package:package_info_plus/package_info_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:ticketsystem/global/global.dart';
 
-// import '../services/services.dart';
+import '../services/services.dart';
 
 class DeviceUtils {
   // Global method to initialize SharedPreferences and set the language
   static Future<void> initializeLanguage() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
-    globalToken = prefs.getString('token') ?? '';
+    globalToken = await Services.getToken();
+    if (globalToken.isEmpty) {
+      // One-time migration: older app versions stored the token in plain
+      // SharedPreferences. Move it to secure storage, then wipe the
+      // plaintext copy.
+      final legacyToken = prefs.getString('token');
+      if (legacyToken != null && legacyToken.isNotEmpty) {
+        globalToken = legacyToken;
+        await Services.setToken(legacyToken);
+      }
+      await prefs.remove('token');
+    }
     globalLanguage = prefs.getString('globalLanguage') ?? "en";
     phone = prefs.getString("phone") ?? '';
     name = prefs.getString("name") ?? '';

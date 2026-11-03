@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:ticketsystem/generated/l10n.dart';
@@ -26,6 +27,7 @@ class HomeProvider extends ChangeNotifier {
   int page = 1;
   int itemCount = 30;
   bool _isLoadingPagination = false;
+  Timer? _searchDebounce;
 
   String get search => _serarch;
   bool get isLoadingBanner => _isLoadingBanner;
@@ -43,6 +45,7 @@ class HomeProvider extends ChangeNotifier {
 
 
   void getAllData() {
+    page = 1;
     itemCount = 1;
     _isLoadingEvent = true;
     getCategory();
@@ -54,12 +57,25 @@ class HomeProvider extends ChangeNotifier {
   void searchList(String value) {
     _serarch = value;
     notifyListeners();
-    getEventList();
+    page = 1;
+    _searchDebounce?.cancel();
+    _searchDebounce = Timer(const Duration(milliseconds: 400), () {
+      getEventList();
+    });
   }
 
   void removeSearch() {
     _serarch = "";
     notifyListeners();
+    page = 1;
+    _searchDebounce?.cancel();
+    getEventList();
+  }
+
+  @override
+  void dispose() {
+    _searchDebounce?.cancel();
+    super.dispose();
   }
 
   Future<void> getBanner() async {
@@ -108,6 +124,7 @@ class HomeProvider extends ChangeNotifier {
       }
     } catch (err) {
       _isLoadingEvent = false;
+      _isLoadingPagination = false;
       notifyListeners();
     }
   }
@@ -126,7 +143,8 @@ class HomeProvider extends ChangeNotifier {
         }else{
            _categoryList[i].isActive  = false;
         }
-      } 
+      }
+       page = 1;
        _isLoadingEvent = true;
       notifyListeners();
       getEventList();
@@ -189,13 +207,18 @@ class HomeProvider extends ChangeNotifier {
         _dateList[i].isActive = false;
       }
     }
+    page = 1;
     _isLoadingEvent = true;
     notifyListeners();
     await getEventList();
   }
 
+  final Set<dynamic> _favoriteInFlight = {};
+
   Future<void> addFavorite(BuildContext context, EventModel data) async {
     if (!guest) {
+      if (_favoriteInFlight.contains(data.id)) return;
+      _favoriteInFlight.add(data.id);
       data.isFavorite = !data.isFavorite;
       notifyListeners();
 
@@ -206,14 +229,18 @@ class HomeProvider extends ChangeNotifier {
         if (!res.success) {
           data.isFavorite = !data.isFavorite;
           notifyListeners();
+          if (!context.mounted) return;
           SnackbarUtil.showSnackbar(context, res.message,
               duration: Duration(milliseconds: 500));
         }
       } catch (err) {
         data.isFavorite = !data.isFavorite;
         notifyListeners();
+        if (!context.mounted) return;
         SnackbarUtil.showSnackbar(context, S.current.system_error,
             duration: Duration(milliseconds: 500));
+      } finally {
+        _favoriteInFlight.remove(data.id);
       }
     } else {
       Navigator.of(context, rootNavigator: true).pushReplacement(
@@ -233,6 +260,7 @@ class HomeProvider extends ChangeNotifier {
 
   ///$$$ LOAD SCROLL PIXEL $$$///
   Future<void> loadMore() async {
+    if (_isLoadingPagination || _isLoadingEvent) return;
     _isLoadingPagination = true;
     page++;
     notifyListeners();

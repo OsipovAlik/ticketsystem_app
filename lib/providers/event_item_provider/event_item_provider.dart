@@ -156,17 +156,29 @@ Future<void> checkedItem(Item data, String key) async{
 
 void addTheatr(Item data){
   data.isChecked = !data.isChecked;
-  _theather.add(data.key);
+  if (data.isChecked) {
+    _theather.add(data.key);
+  } else {
+    _theather.remove(data.key);
+  }
   notifyListeners();
 }
 void addPlace(Item data){
   data.isChecked = !data.isChecked;
-   _place.add(data.key);
+  if (data.isChecked) {
+    _place.add(data.key);
+  } else {
+    _place.remove(data.key);
+  }
   notifyListeners();
 }
 void addCity(Item data){
-   data.isChecked = !data.isChecked;
-   _city.add(data.key);
+  data.isChecked = !data.isChecked;
+  if (data.isChecked) {
+    _city.add(data.key);
+  } else {
+    _city.remove(data.key);
+  }
   notifyListeners();
 }
 
@@ -175,8 +187,12 @@ Future<void> sendFilterItem() async{
   notifyListeners();
 }
 
+final Set<dynamic> _favoriteInFlight = {};
+
 Future<void> addFavorite(BuildContext context, EventModel data) async {
   if (!guest) {
+    if (_favoriteInFlight.contains(data.id)) return;
+    _favoriteInFlight.add(data.id);
     data.isFavorite = !data.isFavorite;
     notifyListeners();
 
@@ -187,14 +203,18 @@ Future<void> addFavorite(BuildContext context, EventModel data) async {
       if (!res.success) {
        data.isFavorite = !data.isFavorite;
        notifyListeners();
+        if (!context.mounted) return;
         SnackbarUtil.showSnackbar(context, res.message,
             duration: Duration(milliseconds: 500));
       }
     } catch (err) {
        data.isFavorite = !data.isFavorite;
        notifyListeners();
+      if (!context.mounted) return;
       SnackbarUtil.showSnackbar(context, S.current.system_error,
           duration: Duration(milliseconds: 500));
+    } finally {
+      _favoriteInFlight.remove(data.id);
     }
   }else {
       Navigator.of(context, rootNavigator: true).pushReplacement(

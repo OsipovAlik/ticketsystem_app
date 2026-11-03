@@ -1,8 +1,8 @@
 
 import 'dart:io';
-// import 'dart:ui';
+import 'dart:ui';
 import 'package:firebase_core/firebase_core.dart';
-// import 'package:firebase_crashlytics/firebase_crashlytics.dart';
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -30,11 +30,11 @@ void main() async{
     statusBarIconBrightness: Brightness.dark,
     systemNavigationBarIconBrightness: Brightness.dark,
   ));
-  // FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterFatalError;
-  // PlatformDispatcher.instance.onError = (error, stack) {
-  //     FirebaseCrashlytics.instance.recordError(error, stack, fatal: true);
-  //     return true;
-  //   };
+  FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterFatalError;
+  PlatformDispatcher.instance.onError = (error, stack) {
+      FirebaseCrashlytics.instance.recordError(error, stack, fatal: true);
+      return true;
+    };
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
   await FirebaseMessaging.instance.setAutoInitEnabled(true);
@@ -48,6 +48,7 @@ void main() async{
   await NotificationService.init();
   // Initializes the app's language settings.
   await DeviceUtils.initializeLanguage();
+  await DeviceUtils.initializeOsType();
   runApp(RestartWidget(child: const TicketSystemApp()));
 }
    
