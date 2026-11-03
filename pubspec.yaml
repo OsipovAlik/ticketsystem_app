@@ -1,0 +1,95 @@
+name: ticketsystem
+description: "A new Flutter project."
+publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+
+version: 1.0.4+4
+
+environment:
+  sdk: ^3.5.1
+
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+
+  provider: ^6.1.2
+  intl: ^0.20.2
+  shared_preferences: ^2.3.3
+  http: ^1.2.2
+  google_maps_flutter: ^2.10.0
+  flutter_localization: ^0.3.3
+  flutter_localizations:
+    sdk: flutter
+  connectivity_plus: ^7.0.0
+  flutter_svg: ^2.0.14
+  carousel_slider: ^5.0.0
+  cached_network_image: ^3.4.1
+  shimmer: ^3.0.0
+  flutter_html: ^3.0.0-beta.2
+  image_picker: ^1.1.2
+  webview_flutter: ^4.10.0
+  country_picker: ^2.0.27
+  webview_flutter_android: ^4.3.2
+  device_info_plus: ^12.1.0
+  android_id: ^0.4.0
+  package_info_plus: ^9.0.0
+  flutter_native_splash: ^2.4.4
+  lottie: ^3.3.1
+  firebase_core: ^4.1.1
+  flutter_local_notifications: ^19.0.0
+  firebase_messaging: ^16.0.2
+  upgrader: ^12.1.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+
+  flutter_lints: ^6.0.0
+
+
+flutter:
+
+
+  uses-material-design: true
+  
+  assets:
+    - lib/assets/images/
+    - lib/assets/svg/
+    - lib/assets/lottie/
+
+flutter_native_splash:
+  ios: false
+  web: false
+  image: 'lib/assets/images/logos.png'
+  color: "#001232"
+  android: true
+  android_gravity: center
+
+  android_12: 
+    color_dark: "#001232"
+    image: 'lib/assets/images/logos.png'
+    # branding: 'lib/assets/images/logo.png'
+
+
+  
+
+# flutter_launcher_icons:
+#   android: true
+#   ios: true
+#   image_path: 'lib/assets/images/tickets.png'
+
+# flutter_icons:
+#   image_path_android: "lib/assets/images/tickets.png"
+#   # image_path_ios: "lib/assets/images/tickets.png"
+#   android: true 
+#   ios: false 
+#   adaptive_icon_background: "lib/assets/images/tickets.png" # only available for Android 8.0 devices and above
+#   adaptive_icon_foreground: "lib/assets/images/tickets.png" # only available for Android 8.0 devices and above
+#   # adaptive_icon_foreground_inset: 16 # only available for Android 8.0 devices and above
+#   # adaptive_icon_monochrome: "assets/images/icon-monochrome-432x432.png" # only available for Android 13 devices and above
+#   min_sdk_android: 21 # android min sdk min:16, default 21
+#   # # remove_alpha_ios: true
+#   # background_color_ios: "#a6d5cd"
+#   background_color_android: "#0c066c"  

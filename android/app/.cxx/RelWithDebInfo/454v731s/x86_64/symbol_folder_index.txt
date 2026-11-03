@@ -1,0 +1,1 @@
+/Users/hayk/Downloads/ticketsystem/build/app/intermediates/cxx/RelWithDebInfo/454v731s/obj/x86_64

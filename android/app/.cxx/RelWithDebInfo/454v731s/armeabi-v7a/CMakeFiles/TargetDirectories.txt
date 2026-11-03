@@ -1,0 +1,2 @@
+/Users/hayk/Downloads/ticketsystem/android/app/.cxx/RelWithDebInfo/454v731s/armeabi-v7a/CMakeFiles/edit_cache.dir
+/Users/hayk/Downloads/ticketsystem/android/app/.cxx/RelWithDebInfo/454v731s/armeabi-v7a/CMakeFiles/rebuild_cache.dir

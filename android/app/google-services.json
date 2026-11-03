@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "700486016864",
+    "project_id": "ticketsystem-cdeb0",
+    "storage_bucket": "ticketsystem-cdeb0.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:700486016864:android:bc4ea1815a7a7c104d0805",
+        "android_client_info": {
+          "package_name": "am.ticketsystemticketsystem.Ticketsystem"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC7DZxrkDUxSXStKxYXhPCviTfptyqYIMM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

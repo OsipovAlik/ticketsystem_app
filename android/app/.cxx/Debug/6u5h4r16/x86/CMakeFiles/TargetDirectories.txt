@@ -1,0 +1,2 @@
+/Users/hayk/Documents/ticketsystem/android/app/.cxx/Debug/6u5h4r16/x86/CMakeFiles/edit_cache.dir
+/Users/hayk/Documents/ticketsystem/android/app/.cxx/Debug/6u5h4r16/x86/CMakeFiles/rebuild_cache.dir
