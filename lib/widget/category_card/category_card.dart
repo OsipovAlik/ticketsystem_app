@@ -23,7 +23,7 @@ class CategoryCard extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           GlobalCashImg(
-              photo: data.icon, width: 25, height: 25, color: data.isActive? CustomColors.cyan: Colors.white, fit: BoxFit.cover),
+              photo: data.icon, width: 25, height: 25, color: data.isActive? CustomColors.cyan: CustomColors.textPrimary, fit: BoxFit.cover),
           SizedBox(width: 10),
           Text(data.name, style: data.isActive? ThemeText.c14b:ThemeText.w14b),
         ],

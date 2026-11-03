@@ -157,8 +157,8 @@ final _scrollController = ScrollController();
                   height: 30,
                  width: 30,
                   "lib/assets/svg/user.svg",
-                  colorFilter: const ColorFilter.mode(
-                    Colors.white,
+                  colorFilter: ColorFilter.mode(
+                    CustomColors.textPrimary,
                     BlendMode.srcIn,
                   ),
                 ),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:ticketsystem/theme/custom_colors.dart';
 import 'package:ticketsystem/theme/styles_text.dart';
 
 class ProfileBtnCard extends StatelessWidget {
@@ -30,8 +31,8 @@ class ProfileBtnCard extends StatelessWidget {
                   width: width,
                   height: height,
                   svgIcon,
-                  colorFilter: const ColorFilter.mode(
-                    Colors.white, // Inactive color
+                  colorFilter: ColorFilter.mode(
+                    CustomColors.textPrimary, // Inactive color
                     BlendMode.srcIn,
                   )),
               SizedBox(width: 16),
@@ -42,8 +43,8 @@ class ProfileBtnCard extends StatelessWidget {
               width: 25,
               height: 25,
               arrowSvg,
-              colorFilter: const ColorFilter.mode(
-                Colors.white, // Inactive color
+              colorFilter: ColorFilter.mode(
+                CustomColors.textPrimary, // Inactive color
                 BlendMode.srcIn,
               ))
         ],

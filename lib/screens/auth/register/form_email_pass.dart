@@ -35,11 +35,11 @@ class FormEmailPass extends StatelessWidget {
         child: Column(spacing: 22, children: <Widget>[
           TextFormField(
               textInputAction: TextInputAction.done,
-              style: TextStyle(color: Colors.white),
+              style: TextStyle(color: CustomColors.textPrimary),
               keyboardType: TextInputType.text,
               enableInteractiveSelection: false,
               controller: emailController,
-              cursorColor: Colors.white,
+              cursorColor: CustomColors.textPrimary,
               autofillHints: [AutofillHints.email],
               validator: (value) {
                 if (value == null || value.isEmpty) {
@@ -80,11 +80,11 @@ class FormEmailPass extends StatelessWidget {
               ),
           TextFormField(
               textInputAction: TextInputAction.done,
-              style: TextStyle(color: Colors.white),
+              style: TextStyle(color: CustomColors.textPrimary),
               keyboardType: TextInputType.text,
               enableInteractiveSelection: false,
               controller: passwordController,
-              cursorColor: Colors.white,
+              cursorColor: CustomColors.textPrimary,
               obscureText: obscureText,
               validator: (value) {
                 if (value == null || value.isEmpty) {

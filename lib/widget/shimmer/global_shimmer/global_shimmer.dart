@@ -4,21 +4,21 @@ import '../../../theme/custom_colors.dart';
 
 class GlobalShimmer extends StatelessWidget {
   final Widget child;
-  final Color baseColor;
-  final Color highlightColor;
+  final Color? baseColor;
+  final Color? highlightColor;
 
   const GlobalShimmer({
     super.key,
     required this.child,
-    this.baseColor = CustomColors.blueBold,
-    this.highlightColor =  CustomColors.blue,
+    this.baseColor,
+    this.highlightColor,
   });
 
   @override
   Widget build(BuildContext context) {
     return Shimmer.fromColors(
-      baseColor: baseColor,
-      highlightColor: highlightColor,
+      baseColor: baseColor ?? CustomColors.blueBold,
+      highlightColor: highlightColor ?? const Color.fromARGB(255, 236, 236, 236),
       child: child,
     );
   }

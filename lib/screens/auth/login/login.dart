@@ -162,7 +162,7 @@ class LoginState extends State<Login> {
               shadowColor: Colors.transparent, // Remove shadow
             ),
             child: isLoading
-                ? const SizedBox(
+                ? SizedBox(
                     height: 22,
                     width: 22,
                     child: CircularProgressIndicator(

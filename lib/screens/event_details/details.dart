@@ -397,7 +397,7 @@ class DetailsState extends State<Details> {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                const Icon(Icons.location_on,color: Colors.white),
+                Icon(Icons.location_on,color: CustomColors.textPrimary),
                 Flexible(
                   child: Text(data.thName, style: ThemeText.c16b),
                 )
@@ -466,7 +466,7 @@ class DetailsState extends State<Details> {
               data: data.description,
               style: {
                 "*": Style(
-                    color: Colors.white,
+                    color: CustomColors.textPrimary,
                     maxLines: isExpanded ? null : 2,
                     // textOverflow: isExpanded ? null : TextOverflow.ellipsis,
                     fontSize: FontSize(16.0),

@@ -20,7 +20,7 @@ class TicketDetailsCard extends StatelessWidget {
         child: Stack(
           children: [
             SvgPicture.asset("lib/assets/svg/tickets.svg",
-                colorFilter: const ColorFilter.mode(
+                colorFilter: ColorFilter.mode(
                   CustomColors.blueLight, // Inactive color
                   BlendMode.srcATop,
                 ),

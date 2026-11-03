@@ -119,7 +119,7 @@ class SearchState extends State<Search>  {
         alignment: Alignment.centerRight,
         children: <Widget>[
           TextFormField(
-             cursorColor: Colors.white, 
+             cursorColor: CustomColors.textPrimary,
               enableInteractiveSelection: true,
               textInputAction: TextInputAction.done,
               // autofocus: true,
@@ -154,10 +154,10 @@ class SearchState extends State<Search>  {
                   Provider.of<HomeProvider>(context, listen: false).removeSearch();
                   searchText.clear();
                 },
-                icon: const Icon(
+                icon: Icon(
                   Icons.close,
                   size: 22,
-                  color: Colors.white,
+                  color: CustomColors.textPrimary,
                 ),
               ),
             ),

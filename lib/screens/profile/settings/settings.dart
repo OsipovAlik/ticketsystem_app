@@ -6,6 +6,7 @@ import 'package:ticketsystem/global/global.dart';
 import 'package:ticketsystem/providers/app_state_provider/app_state_provider.dart';
 import 'package:ticketsystem/providers/language_provider/language_provider.dart';
 import 'package:ticketsystem/providers/profile_provider/profile_provider.dart';
+import 'package:ticketsystem/providers/theme_provider/theme_provider.dart';
 import 'package:ticketsystem/services/services.dart';
 import 'package:ticketsystem/theme/box_decoration.dart';
 import 'package:ticketsystem/theme/custom_colors.dart';
@@ -97,7 +98,12 @@ class SettingsState extends State<Settings> {
               ),
             ),
           ),
-          SizedBox(height: 100),
+          SizedBox(height: 32),
+          Padding(
+            padding: const EdgeInsets.only(left: 18.0, right: 18.0),
+            child: _themeSelector(context),
+          ),
+          SizedBox(height: 32),
           Visibility(
             visible: !guest,
             child: Padding(
@@ -171,7 +177,7 @@ class SettingsState extends State<Settings> {
                         Navigator.of(context).pop();
                       },
                     ),
-                 provider.onLoading? const SizedBox(
+                 provider.onLoading? SizedBox(
                     height: 16,
                     width: 16,
                     child: CircularProgressIndicator(
@@ -194,35 +200,77 @@ class SettingsState extends State<Settings> {
     );
   }
 
-  // Widget _darkMode(BuildContext context) {
-  //   return SizedBox(
-  //     width: MediaQuery.sizeOf(context).width,
-  //     // color: CustomColors.blueLight,
-  //     child: Row(
-  //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-  //       children: [
-  //         Text(S.current.color_mode, style: ThemeText.w18b),
-  //         Transform.scale(
-  //           scale: 0.9, // Adjust the scale to increase/decrease size
-  //           child: Switch(
-  //               value: _lightsDark,
-  //               onChanged: (bool value) {
-  //                 setState(() {
-  //                   _lightsDark = value;
-  //                 });
-  //               },
-  //               activeColor:
-  //                   CustomColors.cyan, // Color of the thumb when active
-  //               activeTrackColor: CustomColors
-  //                   .blueLight, // Background track color when active
-  //               inactiveThumbColor:
-  //                   Colors.white, // Color of the thumb when inactive
-  //               inactiveTrackColor: CustomColors.blueLight),
-  //         )
-  //       ],
-  //     ),
-  //   );
-  // }
+  Widget _themeSelector(BuildContext context) {
+    return Consumer<ThemeProvider>(builder: (context, themeProvider, child) {
+      return Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        spacing: 12,
+        children: [
+          Text(S.current.color_mode, style: ThemeText.w18b),
+          Row(
+            spacing: 8,
+            children: [
+              _themeOption(
+                label: S.current.theme_system,
+                icon: Icons.brightness_auto,
+                selected: themeProvider.themeMode == ThemeMode.system,
+                onTap: () => themeProvider.setThemeMode(ThemeMode.system),
+              ),
+              _themeOption(
+                label: S.current.theme_light,
+                icon: Icons.light_mode,
+                selected: themeProvider.themeMode == ThemeMode.light,
+                onTap: () => themeProvider.setThemeMode(ThemeMode.light),
+              ),
+              _themeOption(
+                label: S.current.theme_dark,
+                icon: Icons.dark_mode,
+                selected: themeProvider.themeMode == ThemeMode.dark,
+                onTap: () => themeProvider.setThemeMode(ThemeMode.dark),
+              ),
+            ],
+          ),
+        ],
+      );
+    });
+  }
+
+  Widget _themeOption({
+    required String label,
+    required IconData icon,
+    required bool selected,
+    required VoidCallback onTap,
+  }) {
+    return Expanded(
+      child: GestureDetector(
+        onTap: onTap,
+        child: Container(
+          padding: const EdgeInsets.symmetric(vertical: 12.0),
+          decoration: BoxDecoration(
+            color: CustomColors.blueLight,
+            borderRadius: BorderRadius.circular(12.0),
+            border: Border.all(
+              color: selected ? CustomColors.cyan : Colors.transparent,
+              width: 1.5,
+            ),
+          ),
+          child: Column(
+            spacing: 6,
+            children: [
+              Icon(icon,
+                  size: 22,
+                  color: selected ? CustomColors.cyan : CustomColors.textPrimary),
+              Text(label,
+                  style: selected ? ThemeText.c12 : ThemeText.w12,
+                  textAlign: TextAlign.center,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
 
   // Widget _biometrics(BuildContext context) {
   //   return SizedBox(
@@ -273,7 +321,7 @@ class SettingsState extends State<Settings> {
               },
               activeColor: CustomColors.cyan,
               activeTrackColor: CustomColors.blueLight,
-              inactiveThumbColor: Colors.white,
+              inactiveThumbColor: CustomColors.textPrimary,
               inactiveTrackColor: CustomColors.blueLight,
             ),
           )

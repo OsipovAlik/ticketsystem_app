@@ -65,7 +65,7 @@ class Schedule extends StatelessWidget {
                               child: Text(S.current.by_ticket.toUpperCase(), style: ThemeText.w12),
                             ),
                           ),
-                         const Divider(color: CustomColors.blueLight),
+                         Divider(color: CustomColors.blueLight),
                         ],
                       ),
                                      

@@ -631,6 +631,51 @@ class S {
       args: [],
     );
   }
+    /// `System Default`
+  String get theme_system {
+    return Intl.message(
+      'System Default',
+      name: 'theme_system',
+      desc: '',
+      args: [],
+    );
+  }
+    /// `Light`
+  String get theme_light {
+    return Intl.message(
+      'Light',
+      name: 'theme_light',
+      desc: '',
+      args: [],
+    );
+  }
+    /// `Dark`
+  String get theme_dark {
+    return Intl.message(
+      'Dark',
+      name: 'theme_dark',
+      desc: '',
+      args: [],
+    );
+  }
+    /// `Home`
+  String get nav_home {
+    return Intl.message(
+      'Home',
+      name: 'nav_home',
+      desc: '',
+      args: [],
+    );
+  }
+    /// `Search`
+  String get nav_search {
+    return Intl.message(
+      'Search',
+      name: 'nav_search',
+      desc: '',
+      args: [],
+    );
+  }
       /// `Biometric`
   String get biometric {
     return Intl.message(

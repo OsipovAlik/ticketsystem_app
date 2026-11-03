@@ -1,4 +1,3 @@
-
 import 'dart:io';
 import 'dart:ui';
 import 'package:firebase_core/firebase_core.dart';
@@ -7,6 +6,7 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
+import 'package:liquid_glass_widgets/liquid_glass_widgets.dart';
 import 'package:ticketsystem/firebase/firebase_options.dart';
 import 'package:ticketsystem/notification/notification.dart';
 import 'package:ticketsystem/routes/routes.dart';
@@ -15,13 +15,12 @@ import 'package:ticketsystem/utils/restart_widget/restart_widget.dart';
 import 'services/http_overrides.dart';
 import 'package:upgrader/upgrader.dart';
 
-
-
-///new version 
-void main() async{
+///new version
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-    await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
-    
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  await LiquidGlassWidgets.initialize();
+
   SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
 
   SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
@@ -32,9 +31,9 @@ void main() async{
   ));
   FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterFatalError;
   PlatformDispatcher.instance.onError = (error, stack) {
-      FirebaseCrashlytics.instance.recordError(error, stack, fatal: true);
-      return true;
-    };
+    FirebaseCrashlytics.instance.recordError(error, stack, fatal: true);
+    return true;
+  };
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
   await FirebaseMessaging.instance.setAutoInitEnabled(true);
@@ -42,13 +41,19 @@ void main() async{
   SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
     DeviceOrientation.portraitDown,
-  ]);  
+  ]);
 
   await Upgrader.clearSavedSettings();
   await NotificationService.init();
   // Initializes the app's language settings.
   await DeviceUtils.initializeLanguage();
   await DeviceUtils.initializeOsType();
-  runApp(RestartWidget(child: const TicketSystemApp()));
+  runApp(LiquidGlassWidgets.wrap(
+    child: RestartWidget(child: const TicketSystemApp()),
+    // MaterialApp's ThemeMode isn't read natively by this Cupertino-based
+    // package, so point it at Theme.maybeBrightnessOf — otherwise glass
+    // shadows/borders can follow the raw OS brightness instead of our
+    // System/Light/Dark ThemeProvider selection.
+    brightnessResolver: Theme.maybeBrightnessOf,
+  ));
 }
-   

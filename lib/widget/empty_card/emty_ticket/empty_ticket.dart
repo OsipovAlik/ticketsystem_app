@@ -23,7 +23,7 @@ class EmptyTicket extends StatelessWidget {
               "lib/assets/svg/empty_ticket.svg",
               width: 150,
               height: 150,
-              colorFilter: const ColorFilter.mode(
+              colorFilter: ColorFilter.mode(
                 CustomColors.blueLight, // Inactive color
                 BlendMode.srcIn,
               ),

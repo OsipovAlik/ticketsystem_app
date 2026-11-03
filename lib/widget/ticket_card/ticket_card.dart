@@ -105,7 +105,7 @@ class TicketCard extends StatelessWidget {
                 Row(
                   spacing: 4,
                   children: [
-                     const Icon(Icons.location_on,size: 16,color: Colors.white),
+                     Icon(Icons.location_on,size: 16,color: CustomColors.textPrimary),
                     SizedBox(
                       width: isIPad(context)? width / 3.8:  width / 3,
                       child: Text(event.thName,

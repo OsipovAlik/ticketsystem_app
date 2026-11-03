@@ -255,14 +255,21 @@ class EventItemState extends State<EventItem> {
       builder: (context, child) {
         return Theme(
           data: Theme.of(context).copyWith(
-            colorScheme: ColorScheme.dark(
-              primary: CustomColors.cyan,
-              onPrimary: Colors.white,
-              onSurface: Colors.white,
-            ),
+            colorScheme: isDarkMode
+                ? ColorScheme.dark(
+                    primary: CustomColors.cyan,
+                    onPrimary: Colors.white,
+                    onSurface: Colors.white,
+                  )
+                : ColorScheme.light(
+                    primary: CustomColors.cyan,
+                    onPrimary: Colors.black,
+                    onSurface: Colors.black,
+                  ),
             datePickerTheme: DatePickerThemeData(
               backgroundColor: CustomColors.blueBold,
-              dayForegroundColor: MaterialStateProperty.all(Colors.white),
+              dayForegroundColor:
+                  MaterialStateProperty.all(CustomColors.textPrimary),
               todayForegroundColor:
                   MaterialStateProperty.all(CustomColors.blueBold),
               rangePickerBackgroundColor:

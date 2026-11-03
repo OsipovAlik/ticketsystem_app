@@ -57,16 +57,16 @@ class FormPhoneName extends StatelessWidget {
                         TextSpan(
                             text: "+ $countryCode", style: ThemeText.w16),
                         const WidgetSpan(child: SizedBox(width: 16)),
-                        const WidgetSpan(
+                        WidgetSpan(
                             alignment: PlaceholderAlignment.middle,
                             child: Icon(Icons.keyboard_arrow_down,
-                                color: Colors.white, size: 16))
+                                color: CustomColors.textPrimary, size: 16))
                       ]))),
             ),
             Expanded(
                 child: TextFormField(
                     textInputAction: TextInputAction.done,
-                    style: TextStyle(color: Colors.white),
+                    style: TextStyle(color: CustomColors.textPrimary),
                     keyboardType: TextInputType.number,
                     inputFormatters: <TextInputFormatter>[
                       FilteringTextInputFormatter.digitsOnly,
@@ -85,7 +85,7 @@ class FormPhoneName extends StatelessWidget {
                     },
                     enableInteractiveSelection: false,
                     controller: phoneController,
-                    cursorColor: Colors.white,
+                    cursorColor: CustomColors.textPrimary,
                     decoration: InputDecoration(
                       fillColor: CustomColors.inputBlue.withOpacity(0.6),
                       border: OutlineInputBorder(
@@ -113,11 +113,11 @@ class FormPhoneName extends StatelessWidget {
 
          TextFormField(
               textInputAction: TextInputAction.done,
-              style: TextStyle(color: Colors.white),
+              style: TextStyle(color: CustomColors.textPrimary),
               keyboardType: TextInputType.text,
               enableInteractiveSelection: false,
               controller: nameController,
-              cursorColor: Colors.white,
+              cursorColor: CustomColors.textPrimary,
               decoration: InputDecoration(
                 fillColor: CustomColors.inputBlue.withOpacity(0.6),
                 border: OutlineInputBorder(

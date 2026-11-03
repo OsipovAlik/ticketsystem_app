@@ -122,7 +122,7 @@ class EventChartState extends State<EventChart> {
         title: Text(S.current.tickets, style: ThemeText.w18b),
         leading: IconButton(
           icon: Icon(Icons.close,
-              color: Colors.white), // Change the icon and color here
+              color: CustomColors.textPrimary), // Change the icon and color here
           onPressed: () {
             Navigator.of(context).pop();
           },

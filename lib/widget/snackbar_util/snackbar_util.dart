@@ -27,9 +27,9 @@ class SnackbarUtil {
       // duration: Duration.zero,
       content: Row(
       children: [
-        SvgPicture.asset(svg, 
+        SvgPicture.asset(svg,
           colorFilter: ColorFilter.mode(
-             Colors.white, // Inactive color
+             CustomColors.textPrimary, // Inactive color
              BlendMode.srcIn,
           )),
           SizedBox(width: 16),
@@ -49,9 +49,9 @@ class SnackbarUtil {
             SizedBox(
               height: 24,
               width: 24,
-              child:   SvgPicture.asset(iconPath, 
+              child:   SvgPicture.asset(iconPath,
           colorFilter: ColorFilter.mode(
-             Colors.white, // Inactive color
+             CustomColors.textPrimary, // Inactive color
              BlendMode.srcIn,
           )), // Assuming you're using an image asset
             ),
@@ -63,7 +63,7 @@ class SnackbarUtil {
         duration: Duration(days: 1), // Set a long duration or use `null` to keep it open indefinitely
         action: SnackBarAction(
           label: S.current.refresh,
-          textColor: Colors.white,
+          textColor: CustomColors.textPrimary,
           onPressed: () {
             initConnectivity();
             ScaffoldMessenger.of(context).hideCurrentSnackBar();

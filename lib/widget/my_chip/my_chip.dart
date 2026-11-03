@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ticketsystem/theme/box_decoration.dart';
+import 'package:ticketsystem/theme/custom_colors.dart';
 import 'package:ticketsystem/theme/styles_text.dart';
 
 
@@ -29,7 +30,7 @@ class MyChip extends StatelessWidget {
             child: Text(title, style: ThemeText.w16b)),
           InkWell(
             onTap: ()=> onDelete(),
-            child: Icon(Icons.close,size: 20,color: Colors.white))
+            child: Icon(Icons.close,size: 20,color: CustomColors.textPrimary))
         ],
       ),
     );

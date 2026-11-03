@@ -1,3 +1,4 @@
+bool isDarkMode = true;
 bool guestUser = true;
 String globalLanguage = "en";
 String globalEng = "1";

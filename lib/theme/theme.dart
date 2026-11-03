@@ -2,41 +2,50 @@ import 'package:flutter/material.dart';
 import 'package:ticketsystem/theme/custom_colors.dart';
 import 'package:ticketsystem/theme/styles_text.dart';
 
+/// Fallback ThemeData for native Material widgets that don't get their
+/// color from CustomColors/ThemeText directly (Dialog, SnackBar, TextField
+/// decoration defaults, DatePicker, etc). Most of the app's own screens pull
+/// colors straight from CustomColors, which already reacts to the active
+/// theme — these ThemeData objects just need to not look broken underneath.
 ThemeData lightMode = ThemeData(
   brightness: Brightness.light,
+  scaffoldBackgroundColor: const Color.fromARGB(255, 244, 246, 250),
+  cardColor: Colors.white,
+  dividerColor: Colors.grey.shade300,
   colorScheme: ColorScheme.light(
-    primary: Colors.white,
-    onPrimary: Colors.grey.shade300,
-    secondary: Colors.grey.shade200,
-    onSecondary: Colors.grey.shade100,
+    primary: CustomColors.blue,
+    onPrimary: Colors.white,
+    secondary: CustomColors.cyan,
+    onSecondary: Colors.black,
+    surface: Colors.white,
+    onSurface: Colors.black87,
   ),
-  primaryTextTheme:const TextTheme(
+  primaryTextTheme: TextTheme(
    headlineLarge: ThemeText.w34b,
    labelLarge: ThemeText.b16,
    titleMedium: ThemeText.b14,
   ),
-  textTheme: const TextTheme(
+  textTheme: TextTheme(
     bodySmall: TextStyle(fontSize: 12, color: CustomColors.cyan),
-    headlineLarge: ThemeText.w34b,
+    headlineLarge: ThemeText.b34b,
     displayLarge: ThemeText.b22b,
     displayMedium: ThemeText.b20b,
     displaySmall: ThemeText.b18b,
     labelLarge: ThemeText.b16b,
     titleMedium: ThemeText.b14b,
     titleSmall: ThemeText.b12b,
-   
-    
   ),
   appBarTheme: AppBarTheme(
-    color: Colors.grey.shade400,
-    titleTextStyle:const TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.black),
-    iconTheme:const IconThemeData(color: Colors.black),
+    backgroundColor: const Color.fromARGB(255, 244, 246, 250),
+    titleTextStyle: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.black),
+    iconTheme: const IconThemeData(color: Colors.black),
   ),
+  dialogTheme: const DialogThemeData(backgroundColor: Colors.white),
+  bottomSheetTheme: const BottomSheetThemeData(backgroundColor: Colors.white),
+  snackBarTheme: SnackBarThemeData(backgroundColor: Colors.grey.shade800),
   elevatedButtonTheme: ElevatedButtonThemeData(
     style: ElevatedButton.styleFrom(
-      // primary: Colors.grey.shade300, // Background color
-      // onPrimary: Colors.black, // Text color
-      textStyle:const TextStyle(fontWeight: FontWeight.bold),
+      textStyle: const TextStyle(fontWeight: FontWeight.bold),
     ),
   ),
   inputDecorationTheme: InputDecorationTheme(
@@ -55,19 +64,23 @@ ThemeData lightMode = ThemeData(
 
 ThemeData darkMode = ThemeData(
   brightness: Brightness.dark,
+  scaffoldBackgroundColor: CustomColors.blueBold,
+  cardColor: CustomColors.blueLight,
+  dividerColor: Colors.grey.shade700,
   colorScheme: ColorScheme.dark(
     primary: CustomColors.blueBold,
-    onPrimary: Colors.grey.shade700,
-    secondary: Colors.grey.shade600,
-    onSecondary: Colors.white,
+    onPrimary: Colors.white,
+    secondary: CustomColors.cyan,
+    onSecondary: Colors.black,
+    surface: CustomColors.blueLight,
+    onSurface: Colors.white,
   ),
-  primaryTextTheme:const TextTheme(
+  primaryTextTheme: TextTheme(
    headlineLarge: ThemeText.w34b,
     labelLarge: ThemeText.w16,
     titleMedium: ThemeText.w14,
-   
   ),
-  textTheme: const TextTheme(
+  textTheme: TextTheme(
     bodySmall: TextStyle(fontSize: 12, color: Colors.white),
     headlineLarge: ThemeText.w34b,
     displayLarge: ThemeText.w22b,
@@ -76,18 +89,18 @@ ThemeData darkMode = ThemeData(
     labelLarge: ThemeText.w16b,
     titleMedium: ThemeText.w14b,
     titleSmall: ThemeText.w12b,
-  
   ),
   appBarTheme: AppBarTheme(
-    color: Colors.grey.shade800,
-    titleTextStyle:const TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white),
-    iconTheme:const IconThemeData(color: Colors.white),
+    backgroundColor: CustomColors.blueBold,
+    titleTextStyle: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white),
+    iconTheme: const IconThemeData(color: Colors.white),
   ),
+  dialogTheme: DialogThemeData(backgroundColor: CustomColors.blueBold),
+  bottomSheetTheme: BottomSheetThemeData(backgroundColor: CustomColors.blueBold),
+  snackBarTheme: SnackBarThemeData(backgroundColor: CustomColors.blueLight),
   elevatedButtonTheme: ElevatedButtonThemeData(
     style: ElevatedButton.styleFrom(
-      // primary: Colors.grey.shade700, // Background color
-      // onPrimary: Colors.white, // Text color
-      textStyle:const TextStyle(fontWeight: FontWeight.bold),
+      textStyle: const TextStyle(fontWeight: FontWeight.bold),
     ),
   ),
   inputDecorationTheme: InputDecorationTheme(
