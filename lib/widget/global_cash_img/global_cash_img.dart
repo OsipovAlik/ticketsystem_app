@@ -26,8 +26,7 @@ class GlobalCashImg extends StatelessWidget {
             height: 400,
             color: Colors.white,
           )),
-      errorWidget: (context, url, error) =>
-          Image.asset('lib/assets/images/logo.png'),
+      errorWidget: (context, url, error) => Image.asset('lib/assets/images/logo.webp'),
     );
   }
 }

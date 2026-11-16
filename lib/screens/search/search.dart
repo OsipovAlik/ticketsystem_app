@@ -21,8 +21,6 @@ class Search extends StatefulWidget {
 }
 
 class SearchState extends State<Search>  {
-  TextEditingController searchText = TextEditingController();
-
   @override
   void initState() {
     WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -123,7 +121,7 @@ class SearchState extends State<Search>  {
               enableInteractiveSelection: true,
               textInputAction: TextInputAction.done,
               // autofocus: true,
-              controller: searchText,
+              controller: Provider.of<HomeProvider>(context, listen: false).searchController,
               decoration: InputDecoration(
                   contentPadding: const EdgeInsets.symmetric(
                       vertical: 12.0, horizontal: 16.0), //
@@ -152,7 +150,6 @@ class SearchState extends State<Search>  {
               child: IconButton(
                 onPressed: () {
                   Provider.of<HomeProvider>(context, listen: false).removeSearch();
-                  searchText.clear();
                 },
                 icon: Icon(
                   Icons.close,

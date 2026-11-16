@@ -122,7 +122,7 @@ class RegisterState extends State<Register> {
                     children: [
                       Center(
                         child: Image.asset(
-                          'lib/assets/images/logo.png',
+                          'lib/assets/images/logo.webp',
                           width: MediaQuery.sizeOf(context).width / 2.5,
                         ),
                       ),
@@ -130,8 +130,8 @@ class RegisterState extends State<Register> {
                   
                       Center(
                           child: Text(
-                        "WELCOME",
-                        style: ThemeText.c22b,
+                        "Welcome",
+                        style: ThemeText.c22,
                       )),
                       const SizedBox(height: 38),
                       Text(S.current.register, style: ThemeText.g22b),

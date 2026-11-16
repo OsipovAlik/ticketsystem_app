@@ -676,6 +676,51 @@ class S {
       args: [],
     );
   }
+    /// `This Week`
+  String get this_week {
+    return Intl.message(
+      'This Week',
+      name: 'this_week',
+      desc: '',
+      args: [],
+    );
+  }
+    /// `Advanced search`
+  String get advanced_search {
+    return Intl.message(
+      'Advanced search',
+      name: 'advanced_search',
+      desc: '',
+      args: [],
+    );
+  }
+    /// `See all`
+  String get see_all {
+    return Intl.message(
+      'See all',
+      name: 'see_all',
+      desc: '',
+      args: [],
+    );
+  }
+    /// `Cinemas`
+  String get cinemas {
+    return Intl.message(
+      'Cinemas',
+      name: 'cinemas',
+      desc: '',
+      args: [],
+    );
+  }
+    /// `Cities`
+  String get cities {
+    return Intl.message(
+      'Cities',
+      name: 'cities',
+      desc: '',
+      args: [],
+    );
+  }
       /// `Biometric`
   String get biometric {
     return Intl.message(

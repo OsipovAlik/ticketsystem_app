@@ -89,7 +89,7 @@ class LoginState extends State<Login> {
                     children: <Widget>[
                       Center(
                         child: Image.asset(
-                          'lib/assets/images/logo.png',
+                          'lib/assets/images/logo.webp',
                           width: MediaQuery.sizeOf(context).width / 2.5,
                         ),
                       ),

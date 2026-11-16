@@ -15,7 +15,6 @@ import 'package:ticketsystem/utils/restart_widget/restart_widget.dart';
 import 'services/http_overrides.dart';
 import 'package:upgrader/upgrader.dart';
 
-///new version
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
@@ -45,15 +44,11 @@ void main() async {
 
   await Upgrader.clearSavedSettings();
   await NotificationService.init();
-  // Initializes the app's language settings.
   await DeviceUtils.initializeLanguage();
   await DeviceUtils.initializeOsType();
+
   runApp(LiquidGlassWidgets.wrap(
     child: RestartWidget(child: const TicketSystemApp()),
-    // MaterialApp's ThemeMode isn't read natively by this Cupertino-based
-    // package, so point it at Theme.maybeBrightnessOf — otherwise glass
-    // shadows/borders can follow the raw OS brightness instead of our
-    // System/Light/Dark ThemeProvider selection.
     brightnessResolver: Theme.maybeBrightnessOf,
   ));
 }

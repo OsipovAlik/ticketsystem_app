@@ -44,6 +44,7 @@ dependencies:
   firebase_crashlytics: ^5.4.1
   liquid_glass_widgets: ^1.16.1
   cupertino_icons: ^1.0.9
+  url_launcher: ^6.3.3
 
 dev_dependencies:
   flutter_test:

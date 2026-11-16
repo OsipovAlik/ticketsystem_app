@@ -35,7 +35,6 @@ class CustomColors {
   static const Color _inputBlueLight = Color.fromARGB(255, 234, 237, 244);
   static const Color _loginCardBlueLight = Color.fromARGB(255, 255, 255, 255);
   static const Color _textGreyLight = Color.fromARGB(255, 70, 76, 87);
-  static const Color _textPrimaryLight = Color.fromARGB(255, 10, 20, 40);
 
   static Color get blueTab => isDarkMode ? _blueTabDark : _blueTabLight;
   static Color get blueLight => isDarkMode ? _blueLightDark : _blueLightLight;
